@@ -1,14 +1,16 @@
 import datetime
+import logging
 
-from urllib.parse import urlparse, urlencode, urlunparse
+from urllib.parse import urlparse, urlencode, urlunparse, parse_qs
 
+from quart import redirect, request
 
 
 
 '''-----------------CLASS VERSION-----------------'''
 class UTMTracker:
-    def __init__(self, url, utm_source, utm_medium, utm_campaign):
-        self.url = url
+    def __init__(self, link, utm_source, utm_medium, utm_campaign):
+        self.link = link
         self.utm_source = utm_source
         self.utm_medium = utm_medium
         self.utm_campaign = utm_campaign
@@ -16,8 +18,8 @@ class UTMTracker:
 
     def add_utm_params(self):
         parsed_url = urlparse('http://127.0.0.1:8000')
-        query_params = parsed_url.query
         params = {
+            'link': self.link,
             'utm_source': self.utm_source,
             'utm_medium': self.utm_medium,
             'utm_campaign': self.utm_campaign,
@@ -34,12 +36,9 @@ class UTMTracker:
             updated_query_params,
             parsed_url.fragment
         ))
-        print(updated_url)
+        logging.info(updated_url)
         return updated_url
 
-
-
-redirect_url = UTMTracker('https://t.me/botfatherdev', 'Telegram', 'adv', 'new service').add_utm_params()
 
 
 

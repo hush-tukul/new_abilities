@@ -1,4 +1,5 @@
 import logging
+import re
 import time
 
 from aiogram import Router, F
@@ -9,6 +10,7 @@ from aiogram_dialog import DialogManager
 from run import dp, bot
 from tgbot.handlers.insta_loader import download_instagram_video, InstaLogin
 from tgbot.filters.admin import AdminFilter
+from url_flask import UTMTracker
 
 admin_router = Router()
 admin_router.message.filter(AdminFilter())
@@ -19,8 +21,16 @@ async def admin_start(message: Message):
     await message.reply("Вітаю, адміне!")
 
 
-
-
+@admin_router.message(F.text)
+async def admin_start(message: Message):
+    g = ['www', '.com', 'https', '@']
+    if all([True if i in message.text else False for i in g]):
+        link = message.text
+        logging.info("trying to make new link")
+        redirect_url = UTMTracker(link, 'Telegram', 'adv', 'new service').add_utm_params()
+        await message.answer(redirect_url, parse_mode='HTML')
+    else:
+        await message.answer('Wrong link', parse_mode='HTML')
 
 # @admin_router.message(F.text)
 # async def instalink(message: Message):

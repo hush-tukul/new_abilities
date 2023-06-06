@@ -6,7 +6,7 @@ instagrapi>=1.17.6
 Pillow>=9.4.0
 imap_tools>=1.0.0
 aiogram-dialog>=2.0.0b17
-
+quart>=0.18.4
 # # For enabling api:
 # backoff
 # ujson
