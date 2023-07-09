@@ -1,43 +1,38 @@
-import datetime
+
 import logging
 
-from urllib.parse import urlparse, urlencode, urlunparse, parse_qs
+from urllib.parse import urlparse, urlencode, urlunparse
 
-from quart import redirect, request
 
 
 
 '''-----------------CLASS VERSION-----------------'''
 class UTMTracker:
-    def __init__(self, link, utm_source, utm_medium, utm_campaign):
-        self.link = link
-        self.utm_source = utm_source
-        self.utm_medium = utm_medium
-        self.utm_campaign = utm_campaign
-        self.datetime = datetime.datetime.now().strftime('%H:%M:%S-%d/%m/%Y')
+    def __init__(self, link_id):
+        self.link_id = link_id
 
-    def add_utm_params(self):
-        parsed_url = urlparse('http://127.0.0.1:8000')
-        params = {
-            'link': self.link,
-            'utm_source': self.utm_source,
-            'utm_medium': self.utm_medium,
-            'utm_campaign': self.utm_campaign,
-            'datetime': self.datetime
-        }
+    def add_link_id(self):
+        g = f"http://127.0.0.1:5000/{self.link_id}"
+        return g
+        # parsed_url = urlparse('http://127.0.0.1:5000')
+        # params = {
+        #     'a': self.link_id,
+        # 
+        # }
+        # 
+        # # Build the updated URL with UTM parameters
+        # updated_query_params = urlencode(params)
+        # updated_url = urlunparse((
+        #     parsed_url.scheme,
+        #     parsed_url.netloc,
+        #     parsed_url.path,
+        #     parsed_url.params,
+        #     updated_query_params,
+        #     parsed_url.fragment
+        # ))
+        # logging.info(updated_url)
+        # return updated_url
 
-        # Build the updated URL with UTM parameters
-        updated_query_params = urlencode(params)
-        updated_url = urlunparse((
-            parsed_url.scheme,
-            parsed_url.netloc,
-            parsed_url.path,
-            parsed_url.params,
-            updated_query_params,
-            parsed_url.fragment
-        ))
-        logging.info(updated_url)
-        return updated_url
 
 
 

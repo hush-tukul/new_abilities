@@ -14,11 +14,27 @@ services:
     command: python3 -m bot
     restart: unless-stopped
     env_file:
-      - ".env"
+      - "../TrackerBot/.env"
     networks:
       - bot
     depends_on:
       - db
+      - quart
+
+  quart:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: hypercorn --bind 0.0.0.0:5000 app.py:app
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    networks:
+      - bot
+
+
   db:
     image: postgres
     restart: always
@@ -45,14 +61,15 @@ services:
     image: aiogram/telegram-bot-api:latest
     restart: always
     env_file:
-      - ".env"
+      - "../TrackerBot/.env"
     ports:
-      - "8081:8081"
+      - "8080:8080"
     volumes:
       - /var/lib/telegram-bot-api:/var/lib/telegram-bot-api
 
     networks:
       - bot
+
 
 networks:
   bot:

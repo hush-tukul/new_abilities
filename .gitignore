@@ -60,5 +60,5 @@ run.py
 # Pyre type checker
 .pyre/
 .idea/
-.env
+../TrackerBot/.env
 cache/
