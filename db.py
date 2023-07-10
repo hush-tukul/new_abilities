@@ -1,9 +1,11 @@
+import json
 import logging
 from datetime import datetime
 
-from sqlalchemy import create_engine, DateTime, text, BigInteger
+from sqlalchemy import create_engine, DateTime, text, BigInteger, JSON
 
 from sqlalchemy import Column, String
+
 
 from sqlalchemy.orm import sessionmaker, declarative_base
 import hashlib
@@ -186,11 +188,19 @@ class Stat(Base):
 
     link_id = Column(String, primary_key=True)
     client_ip = Column(String)
+    client_data = Column(JSON)
     registry_datetime = Column(DateTime)
 
     @classmethod
-    def save_click(cls, link_id, client_ip, registry_datetime):
-        new_click = Stat(link_id=link_id, client_ip=client_ip, registry_datetime=registry_datetime)
+    def set_client_data(self, data):
+        return json.dumps(dict(data))
+
+    @classmethod
+    def get_client_data(self):
+        return json.loads(self.client_data) if self.client_data else {}
+    @classmethod
+    def save_click(cls, link_id, client_ip, data, registry_datetime):
+        new_click = Stat(link_id=link_id, client_ip=client_ip, client_data=Stat.set_client_data(data), registry_datetime=registry_datetime)
         session.add(new_click)
         session.commit()
         return "Click succesfully saved!"
