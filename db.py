@@ -10,9 +10,9 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import sessionmaker, declarative_base
 import hashlib
 
+from run import db_login, db_password, db_host_name, db_name
 
-
-engine = create_engine('postgresql://postgres:123456@db:5432/postgres')
+engine = create_engine(f'postgresql://{db_login}:{db_password}@{db_host_name}:5432/{db_name}')
 Base = declarative_base()
 
 
