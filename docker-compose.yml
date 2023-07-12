@@ -12,9 +12,9 @@ services:
       - .:/usr/src/app/${BOT_NAME:-tg_bot}
       - /var/lib/telegram-bot-api:/var/lib/telegram-bot-api
     command: python3 -m bot
-    restart: unless-stopped
+    restart: always
     env_file:
-      - "../TrackerBot/.env"
+      - "../new_abilities/.env"
     networks:
       - bot
     depends_on:
@@ -26,7 +26,7 @@ services:
       context: .
       dockerfile: Dockerfile
     command: hypercorn --bind 0.0.0.0:5000 app.py:app
-    restart: unless-stopped
+    restart: always
     ports:
       - "5000:5000"
     depends_on:
@@ -61,7 +61,7 @@ services:
     image: aiogram/telegram-bot-api:latest
     restart: always
     env_file:
-      - "../TrackerBot/.env"
+      - "../new_abilities/.env"
     ports:
       - "8080:8080"
     volumes:

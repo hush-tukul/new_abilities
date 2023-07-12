@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 .env
+pg_notify/
+pg_data/
 # C extensions
 *.so
 
