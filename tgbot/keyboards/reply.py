@@ -126,7 +126,7 @@ async def new_link_reply(message: Message, input: MessageInput, dialog_manager: 
 
                 else:
                     logging.info("link was saved, trying to make refer-link")
-                    redirect_url = f"http://127.0.0.1:8000/{link_id}"
+                    redirect_url = f"http://89.117.54.23:5000/{link_id}"
                     logging.info("refer-link created")
                     await message.answer(f"Link was saved and referral-link was created - {redirect_url}", parse_mode='HTML')
                     await dialog_manager.switch_to(LinkBot.links_list_state)
