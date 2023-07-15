@@ -15,7 +15,9 @@ all_langs = {
                     },
                 },
                 ('--------------------  Link statistic  --------------------', 'link_stat'): {},
-                ('--------------------  Show referral link  --------------------', 'show_ref_link'): {},
+                ('--------------------  Show referral link  --------------------', 'show_ref_link'): {
+                    ('Referral link: ', 'ref_link'): {}
+                    },
                 ('--------------------  Delete link  --------------------', 'del_link'): {
                     ('--------------------  Please confirm deletion  --------------------', 'del_link'): {
                     },

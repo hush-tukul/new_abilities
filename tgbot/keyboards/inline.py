@@ -84,16 +84,24 @@ async def link_options_inline(dialog_manager: DialogManager, **kwargs):
 
 
 async def option_action_inline(dialog_manager: DialogManager, **kwargs):
+    link_id = dialog_manager.dialog_data.get('chosen_link')
     user_lang = dialog_manager.start_data.get('user_lang')
     option = dialog_manager.dialog_data.get('main_menu_option')
     action = dialog_manager.dialog_data.get('chosen_option')
+
     logging.info(f"option_action_inline/option: {option}")
     logging.info(f"option_action_inline/action: {action}")
     confirm_button = action_confirm_button(user_lang, option, action)
+    option_action_data = ''
+    if action == 'show_ref_link':
+        redirect_url = f"http://89.117.54.23:5000/{link_id}"
+        option_action_data = redirect_url
     return {
         'title': confirm_button[0][0],
-        'confirm_button': confirm_button[1][0][0]
+        'confirm_button': confirm_button[1][0][0],
+        'option_action_data': option_action_data
     }
+
 
 async def del_action_inline(dialog_manager: DialogManager, **kwargs):
     user_lang = dialog_manager.start_data.get('user_lang')

@@ -108,10 +108,10 @@ link_options_window = Window(
     getter=link_options_inline
 )
 
-
 option_action_window = Window(
     Format("{title}"),
     Format("{confirm_button}"),
+    Format("{option_action_data}"),
     MessageInput(new_link_reply, ContentType.TEXT),
     SwitchTo(Const("Back"), id="Back", state=LinkBot.link_options_state),
     parse_mode=ParseMode.HTML,

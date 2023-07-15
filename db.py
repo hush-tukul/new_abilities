@@ -185,8 +185,8 @@ class Users(Base):
 
 class Stat(Base):
     __tablename__ = 'stat'
-
-    link_id = Column(String, primary_key=True)
+    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    link_id = Column(String)
     client_ip = Column(String)
     client_data = Column(JSON)
     registry_datetime = Column(DateTime)
