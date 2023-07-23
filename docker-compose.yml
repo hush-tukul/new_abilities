@@ -39,13 +39,14 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: postgres
+      POSTGRES_USER: Priferiti
+      POSTGRES_PASSWORD: c3r3f43g334t43
+      POSTGRES_DB: ref_db
     ports:
       - "5432:5432"
     volumes:
       - ./pgdata:/var/lib/postgresql/data
+
     networks:
       - bot
 
